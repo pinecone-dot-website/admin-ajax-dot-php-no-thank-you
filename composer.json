@@ -1,0 +1,15 @@
+{
+    "name": "pinecone-dot-website/admin-ajax-dot-php-no-thank-you",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [ {
+        "name": "Eric Eaglstun",
+        "email": "postpostmodern@gmail.com"
+    } ],
+    "autoload": {
+        "psr-4": { "Admin_Ajax_No_Thank_You\\": "lib/Admin_Ajax_No_Thank_You/" }
+    },
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
