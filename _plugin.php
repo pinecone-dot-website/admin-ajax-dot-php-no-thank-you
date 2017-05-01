@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: 	admin-ajax-dot-php-no-thank-you
+Plugin Name: 	admin-ajax.php, no thank you!
 Plugin URI: 	https://github.com/pinecone-dot-website/admin-ajax-dot-php-no-thank-you
 Description: 	
 Author: 		pinecone-dot-website, postpostmodern
 Text Domain:	
 Domain Path:	/lang
-Version:		0.0.1
+Version:		0.0.2
 Author URI: 	https://rack.and.pinecone.website/
 */
 
