@@ -2,11 +2,11 @@
 /*
 Plugin Name: 	admin-ajax.php, no thank you!
 Plugin URI: 	https://github.com/pinecone-dot-website/admin-ajax-dot-php-no-thank-you
-Description: 	
+Description: 	Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 Author: 		pinecone-dot-website, postpostmodern
 Text Domain:	
 Domain Path:	/lang
-Version:		0.0.2
+Version:		0.0.3
 Author URI: 	https://rack.and.pinecone.website/
 */
 
