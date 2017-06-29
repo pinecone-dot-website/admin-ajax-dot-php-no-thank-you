@@ -13,8 +13,13 @@ Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 == Installation ==
 1. Place /admin-ajax-dot-php-no-thank-you/ directory in /wp-content/plugins/
 1. Flush the permalink structure by saving the options at Settings > Permalinks
+1. Any place that calls `admin_url( 'admin-ajax.php' )` from PHP or `ajaxurl` from JavaScript will automatically use `/ajax/` instead of `/wp-admin/admin-ajax.php`
+1. `/wp-json/wp/v2/admin-ajax` in the REST API is also available for receiving requests.
 
 == Changelog ==
+= 0.1.0 =
+* Rest API endpoint added
+
 = .0.0.3 =
 * Prep for WP plugin directory
 

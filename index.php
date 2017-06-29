@@ -3,6 +3,27 @@
 namespace Admin_Ajax_No_Thank_You;
 
 /**
+*
+*/
+function rest_api_init()
+{
+    register_rest_route( 'wp/v2', '/admin-ajax', array(
+        'methods' => 'GET',
+        'callback' => __NAMESPACE__.'\rest_api_callback',
+    ) );
+}
+add_action( 'rest_api_init', __NAMESPACE__.'\rest_api_init' );
+
+/**
+*
+*/
+function rest_api_callback()
+{
+    require ABSPATH.'/wp-admin/admin-ajax.php';
+    exit();
+}
+
+/**
 *   attached to `admin_url` filter
 *   replace /wp-admin/admin-ajax.php with /ajax/
 *   @param string
