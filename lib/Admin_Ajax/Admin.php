@@ -27,7 +27,7 @@ class Admin
 
         add_settings_section(
             'admin_ajax_no_thank_you_settings_section',
-            'Hello',
+            '',    // subhead
             array($this,'description'),
             'admin_ajax_no_thank_you'
         );

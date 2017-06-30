@@ -2,6 +2,9 @@
     "use strict";
 
     var $debugger = $('#debugger');
+    $debugger.after($('<a>clear</a>').click(function () {
+        $debugger.html('');
+    }));
 
     $('form tr').find('td:last').each(function (i) {
         var $link = $('<a>test</a>'),
