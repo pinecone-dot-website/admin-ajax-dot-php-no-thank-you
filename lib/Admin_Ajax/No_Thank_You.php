@@ -32,7 +32,12 @@ class No_Thank_You
     */
     public static function get_endpoint_rest($blog_id = null)
     {
-        return get_rest_url( $blog_id, self::$settings['endpoint']['rest-api'] );
+        $url = get_rest_url( $blog_id, self::$settings['endpoint']['rest-api'] );
+        $url = add_query_arg( array(
+            '_wpnonce' => wp_create_nonce( 'wp_rest' )
+        ), $url );
+
+        return $url;
     }
 
     /**

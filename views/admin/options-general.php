@@ -8,3 +8,9 @@
         ?>
     </form>
 </div>
+
+<style>
+    form a{
+        cursor: pointer;
+    }
+</style>
