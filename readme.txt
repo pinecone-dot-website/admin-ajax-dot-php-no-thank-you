@@ -13,11 +13,14 @@ Adds an endpoint to the REST API at `/wp-json/wp/v2/admin-ajax` that behaves exa
 
 == Installation ==
 1. Place /admin-ajax-dot-php-no-thank-you/ directory in /wp-content/plugins/
-1. Flush the permalink structure by saving the options at Settings > Permalinks
+1. Enable the rewrite or REST API endpoints at Settings > admin-ajax.php Settings [wp-admin/options-general.php?page=admin-ajax.php-no-thank-you]
 1. Any place that calls `admin_url( 'admin-ajax.php' )` from PHP or `ajaxurl` from JavaScript will automatically use `/ajax/` instead of `/wp-admin/admin-ajax.php`
 1. `/wp-json/wp/v2/admin-ajax` in the REST API is also available for receiving requests.
 
 == Changelog ==
+= 0.3.0 =
+* initial admin settings
+
 = 0.2.0 =
 * Move to class & autoload
 

@@ -2,14 +2,22 @@
     "name": "pinecone-dot-website/admin-ajax-dot-php-no-thank-you",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
-    "authors": [ {
-        "name": "Eric Eaglstun",
-        "email": "postpostmodern@gmail.com"
-    } ],
+    "authors": [
+        {
+            "name": "Eric Eaglstun",
+            "email": "postpostmodern@gmail.com"
+        }
+    ],
     "autoload": {
-        "psr-4": { "Admin_Ajax\\": "lib/Admin_Ajax" }
+        "files": [
+            "functions.php"
+        ],
+        "psr-4": {
+            "Admin_Ajax\\": "lib/Admin_Ajax"
+        }
     },
     "require": {
+        "php": ">=5.3",
         "composer/installers": "~1.0"
     }
 }

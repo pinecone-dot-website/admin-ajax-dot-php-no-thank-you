@@ -6,7 +6,7 @@ Description: 	Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 Author: 		pinecone-dot-website, postpostmodern
 Text Domain:	
 Domain Path:	/lang
-Version:		0.2.0
+Version:		0.3.0
 Author URI: 	https://rack.and.pinecone.website/
 */
 

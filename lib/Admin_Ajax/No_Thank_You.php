@@ -2,13 +2,46 @@
 
 namespace Admin_Ajax;
 
-class No_Thank_You{
-    public function __construct(){
+class No_Thank_You
+{
+    protected static $settings;
+
+    public function __construct()
+    {
+        self::settings_load();
+        
         add_filter( 'admin_url', array($this, 'rewrite_ajax_admin_url'), 10, 3 );
         add_action( 'rest_api_init', array($this, 'rest_api_init') );
         add_filter( 'pre_get_posts', array($this, 'rewrite_ajax_pre_get_posts'), 1, 1 );
         add_filter( 'query_vars', array($this, 'rewrite_ajax_query_vars'), 10, 1 );
         add_filter( 'root_rewrite_rules', array($this, 'rewrite_ajax_root_rewrite_rules'), 10, 1 );
+    }
+
+    /**
+    *
+    */
+    public static function settings_get()
+    {
+        return self::$settings;
+    }
+
+    /**
+    *
+    */
+    public static function settings_load()
+    {
+        $defaults = array(
+            'default' => '',
+            'enabled' => array(),
+            'endpoint' => array(
+                'rewrite' => 'ajax',
+                'rest-api' => 'wp/v2/admin-ajax'
+            )
+        );
+
+        $settings = get_option( 'admin_ajax_no_thank_you', array() );
+        
+        self::$settings = array_merge( $defaults, $settings );
     }
 
     /**
@@ -30,10 +63,15 @@ class No_Thank_You{
     */
     public function rewrite_ajax_admin_url($url, $path, $blog_id)
     {
-        if ($path == 'admin-ajax.php') {
-            $url = get_site_url( $blog_id, '/ajax/' );
+        if ($path != 'admin-ajax.php') {
+            return $url;
         }
 
+        $rewrite = trim( self::$settings['endpoint']['rewrite'] );
+        if ($rewrite && in_array('rewrite', self::$settings['enabled'])) {
+            $url = get_home_url( $blog_id, sprintf('/%s/', $rewrite) );
+        }
+            
         return $url;
     }
 
@@ -52,13 +90,17 @@ class No_Thank_You{
     }
 
     /**
-    *   attatched to `root_rewrite_rules` to register rewrite rule for /ajax/
+    *   attatched to `root_rewrite_rules` to register rewrite rule for /ajax/ or custom
     *   @param array
     *   @return array
     */
     public function rewrite_ajax_root_rewrite_rules($rules)
     {
-        $rules['ajax/?$'] = 'index.php?&admin_ajax_no_thank_you=1';
+        $rewrite = trim( self::$settings['endpoint']['rewrite'], '/' );
+        
+        if ($rewrite && in_array('rewrite', self::$settings['enabled'])) {
+            $rules[$rewrite.'/?$'] = 'index.php?&admin_ajax_no_thank_you=1';
+        }
 
         return $rules;
     }
@@ -86,5 +128,4 @@ class No_Thank_You{
             'callback' => array($this, 'require_admin_ajax'),
         ) );
     }
-    
 }
