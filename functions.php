@@ -1,5 +1,7 @@
 <?php
 
+namespace Admin_Ajax;
+
 /**
 *   render a page into wherever
 *   @param string

@@ -18,6 +18,9 @@ Adds an endpoint to the REST API at `/wp-json/wp/v2/admin-ajax` that behaves exa
 1. `/wp-json/wp/v2/admin-ajax` in the REST API is also available for receiving requests.
 
 == Changelog ==
+= 0.3.6 =
+* namespace functions
+
 = 0.3.5 =
 * fix rest api nonce / authentication, debugger on admin page
 
