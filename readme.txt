@@ -2,12 +2,13 @@
 Contributors: postpostmodern, pinecone-dot-io
 Donate link: https://cash.me/$EricEaglstun
 Tags: admin-ajax.php, ajax, javascript
-Requires at least: 3.9
+Requires at least: 4.0
 Tested up to: 4.8
 Stable tag: trunk
 
 == Description ==
 Changes the wp-admin/admin-ajax.php endpoint to /ajax/
+Adds an endpoint to the REST API at `/wp-json/wp/v2/admin-ajax` that behaves exactly as wp-admin/admin-ajax.php
 - requires PHP 5.3
 
 == Installation ==
@@ -17,6 +18,9 @@ Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 1. `/wp-json/wp/v2/admin-ajax` in the REST API is also available for receiving requests.
 
 == Changelog ==
+= 0.2.0 =
+* Move to class & autoload
+
 = 0.1.0 =
 * Rest API endpoint added
 

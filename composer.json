@@ -7,7 +7,7 @@
         "email": "postpostmodern@gmail.com"
     } ],
     "autoload": {
-        "psr-4": { "Admin_Ajax_No_Thank_You\\": "lib/Admin_Ajax_No_Thank_You/" }
+        "psr-4": { "Admin_Ajax\\": "lib/Admin_Ajax" }
     },
     "require": {
         "composer/installers": "~1.0"
