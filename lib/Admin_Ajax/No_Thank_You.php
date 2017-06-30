@@ -45,7 +45,7 @@ class No_Thank_You{
     public function rewrite_ajax_pre_get_posts($wp_query)
     {
         if ($wp_query->is_main_query() && $wp_query->get('admin_ajax_no_thank_you')) {
-            require_admin_ajax();
+            $this->require_admin_ajax();
         }
 
         return $wp_query;
