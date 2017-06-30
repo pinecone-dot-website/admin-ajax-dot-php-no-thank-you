@@ -88,16 +88,25 @@ class No_Thank_You
     */
     public function rewrite_ajax_admin_url($url, $path, $blog_id)
     {
-        if ($path != 'admin-ajax.php') {
+        
+        if (\stripos( $path, 'admin-ajax.php') !== 0) {
             return $url;
         }
         
+        $parsed = \parse_url( $url );
+        
+
         if ((self::$settings['default'] == 'rest-api') && in_array('rest-api', self::$settings['enabled'])) {
             $url = self::get_endpoint_rest( $blog_id );
         } elseif ((self::$settings['default'] == 'rewrite') && in_array('rewrite', self::$settings['enabled'])) {
             $url = self::get_endpoint_rewrite( $blog_id );
         }
-            
+        
+        if( !empty($parsed['query']) ){
+            parse_str( $parsed['query'], $query_vars );
+            $url = add_query_arg( $query_vars, $url );
+        }
+        
         return $url;
     }
 

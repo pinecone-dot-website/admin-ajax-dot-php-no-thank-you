@@ -19,7 +19,7 @@ class Admin
     {
         add_options_page(
             'admin-ajax.php Settings',
-            'admin-ajax.php Settings',
+            'admin-ajax.php',
             'manage_options',
             'admin-ajax.php-no-thank-you',
             array($this, 'render_main')
