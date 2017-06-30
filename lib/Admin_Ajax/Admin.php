@@ -8,15 +8,11 @@ class Admin
     {
         add_action( 'admin_menu', array($this, 'admin_menu') );
         add_filter( 'plugin_action_links_admin-ajax-dot-php-no-thank-you/_plugin.php', array($this, 'plugin_action_links') );
-
-        
-        register_setting( 'admin_ajax_no_thank_you', 'admin_ajax_no_thank_you', array($this,'save_setting') );
     }
 
     /**
-    *   setup page for dbug settings
+    *   setup page and settings
     *   add link to settings page under 'Settings' admin sidebar
-    *   update settings from $_POST
     *   attached to `admin_menu` action
     */
     public function admin_menu()
@@ -43,6 +39,8 @@ class Admin
             'admin_ajax_no_thank_you',
             'admin_ajax_no_thank_you_settings_section'
         );
+
+        register_setting( 'admin_ajax_no_thank_you', 'admin_ajax_no_thank_you', array($this,'save_setting') );
     }
 
     /**
@@ -73,9 +71,13 @@ class Admin
     */
     public function render_enabled()
     {
-        $settings = No_Thank_You::settings_get();
+        $settings = No_Thank_You::get_settings();
        
         echo render( 'admin/options-general-enabled', array(
+            'endpoints' => array(
+                'rest' => No_Thank_You::get_endpoint_rest(),
+                'rewrite' => No_Thank_You::get_endpoint_rewrite()
+            ),
             'settings' => $settings
         ) );
     }
@@ -85,6 +87,7 @@ class Admin
     */
     public function render_main()
     {
+        wp_enqueue_script( 'taxonomy-taxi', plugins_url('public/admin/options-general.js', dirname(__DIR__)), array(), version(), 'all' );
         echo render( 'admin/options-general' );
     }
 

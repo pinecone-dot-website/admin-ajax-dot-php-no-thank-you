@@ -8,7 +8,7 @@ class No_Thank_You
 
     public function __construct()
     {
-        self::settings_load();
+        self::load_settings();
         
         add_filter( 'admin_url', array($this, 'rewrite_ajax_admin_url'), 10, 3 );
         add_action( 'rest_api_init', array($this, 'rest_api_init') );
@@ -19,16 +19,36 @@ class No_Thank_You
 
     /**
     *
+    *   @return array
     */
-    public static function settings_get()
+    public static function get_settings()
     {
         return self::$settings;
     }
 
     /**
     *
+    *   @return string
     */
-    public static function settings_load()
+    public static function get_endpoint_rest($blog_id = null)
+    {
+        return get_rest_url( $blog_id, self::$settings['endpoint']['rest-api'] );
+    }
+
+    /**
+    *
+    *   @return string
+    */
+    public static function get_endpoint_rewrite($blog_id = null)
+    {
+        $rewrite = trim( self::$settings['endpoint']['rewrite'] );
+        return get_home_url( $blog_id, sprintf('/%s/', $rewrite) );
+    }
+
+    /**
+    *
+    */
+    public static function load_settings()
     {
         $defaults = array(
             'default' => '',
@@ -55,7 +75,7 @@ class No_Thank_You
 
     /**
     *   attached to `admin_url` filter
-    *   replace /wp-admin/admin-ajax.php with /ajax/
+    *   replace /wp-admin/admin-ajax.php with rewrite
     *   @param string
     *   @param string
     *   @param int
@@ -66,10 +86,11 @@ class No_Thank_You
         if ($path != 'admin-ajax.php') {
             return $url;
         }
-
-        $rewrite = trim( self::$settings['endpoint']['rewrite'] );
-        if ($rewrite && in_array('rewrite', self::$settings['enabled'])) {
-            $url = get_home_url( $blog_id, sprintf('/%s/', $rewrite) );
+        
+        if ((self::$settings['default'] == 'rest-api') && in_array('rest-api', self::$settings['enabled'])) {
+            $url = self::get_endpoint_rest( $blog_id );
+        } elseif ((self::$settings['default'] == 'rewrite') && in_array('rewrite', self::$settings['enabled'])) {
+            $url = self::get_endpoint_rewrite( $blog_id );
         }
             
         return $url;

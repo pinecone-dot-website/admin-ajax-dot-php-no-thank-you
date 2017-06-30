@@ -27,3 +27,11 @@ new No_Thank_You;
 if (is_admin()) {
     new Admin;
 }
+
+add_action( 'wp_ajax_admin-ajax-test', function () {
+    $response = array(
+        'post' => $_POST
+    );
+
+    wp_send_json( $response );
+} );
