@@ -102,7 +102,7 @@ class No_Thank_You
             $url = self::get_endpoint_rewrite( $blog_id );
         }
         
-        if( !empty($parsed['query']) ){
+        if (!empty($parsed['query'])) {
             parse_str( $parsed['query'], $query_vars );
             $url = add_query_arg( $query_vars, $url );
         }
@@ -158,7 +158,15 @@ class No_Thank_You
     */
     public function rest_api_init()
     {
-        register_rest_route( 'wp/v2', '/admin-ajax', array(
+        $endpoint = array_filter( explode('/', self::$settings['endpoint']['rest-api']) );
+        if (count($endpoint) < 3) {
+            return;
+        }
+
+        $namespace = implode( '/', array_slice($endpoint, 0, 2) );
+        $route = implode( '/', array_slice($endpoint, 2) );
+        
+        register_rest_route( $namespace, $route, array(
             'methods' => 'GET, POST',
             'callback' => array($this, 'require_admin_ajax'),
         ) );

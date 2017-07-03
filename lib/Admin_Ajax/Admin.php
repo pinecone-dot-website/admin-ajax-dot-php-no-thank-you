@@ -50,6 +50,7 @@ class Admin
     */
     public function description($args)
     {
+        echo sprintf( '<pre>%s</pre>', version() );
     }
 
     /**

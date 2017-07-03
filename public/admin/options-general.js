@@ -21,12 +21,15 @@
                     'action': 'admin-ajax-test',
                     'rand': rand
                 },
+                'error': function (data) {
+                    ajax_test_error()
+                },
                 'method': 'post',
                 'success': function (data) {
                     if (typeof data.post == 'object' && data.post.rand == rand) {
-                        $debugger.append('response correct!\n\n');
+                        ajax_test_success();
                     } else {
-                        $debugger.append('something is wrong!\n\n');
+                        ajax_test_error();
                     }
                 },
                 'url': $this.data('url')
@@ -35,4 +38,12 @@
 
         $this.html($link);
     });
+
+    function ajax_test_error() {
+        $debugger.append('something is wrong!\n\n');
+    }
+
+    function ajax_test_success() {
+        $debugger.append('response correct!\n\n');
+    }
 })(jQuery);

@@ -14,7 +14,7 @@
             <td><input type="radio" <?php checked( $settings['default'] == 'rewrite' ); ?> name="admin_ajax_no_thank_you[default]" value="rewrite"/></td>
             <td>
                 <label>Rewrite endpoint</label>
-                <input type="text" value="<?php echo esc_attr($settings['endpoint']['rewrite']); ?>" name="admin_ajax_no_thank_you[endpoint][rewrite]" placeholder="/ajax/">
+                <input type="text" value="<?php echo esc_attr($settings['endpoint']['rewrite']); ?>" name="admin_ajax_no_thank_you[endpoint][rewrite]" placeholder="ajax">
             </td>
             <td data-url="<?php echo esc_attr($endpoints['rewrite']); ?>"></td>
         </tr>
@@ -24,7 +24,7 @@
             <td><input type="radio" <?php checked( $settings['default'] == 'rest-api' ); ?> name="admin_ajax_no_thank_you[default]" value="rest-api"/></td>
             <td>
                 <label>REST API endpoint</label>
-                <input type="text" value="<?php echo esc_attr($settings['endpoint']['rest-api']); ?>" name="admin_ajax_no_thank_you[endpoint][rest-api]" placeholder="/wp/v2/admin-ajax">
+                <input type="text" value="<?php echo esc_attr($settings['endpoint']['rest-api']); ?>" name="admin_ajax_no_thank_you[endpoint][rest-api]" placeholder="wp/v2/admin-ajax">
             </td>
             <td data-url="<?php echo esc_attr($endpoints['rest']); ?>"></td>
         </tr>

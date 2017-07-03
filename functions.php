@@ -34,3 +34,17 @@ function version()
     $data = get_plugin_data( __DIR__.'/_plugin.php' );
     return $data['Version'];
 }
+
+/**
+*
+*/
+function wp_ajax_test()
+{
+    $response = array(
+        'post' => $_POST
+    );
+
+    wp_send_json( $response );
+}
+add_action( 'wp_ajax_admin-ajax-test', __NAMESPACE__.'\wp_ajax_test' );
+//add_action( 'wp_ajax_nopriv_admin-ajax-test', __NAMESPACE__.'\wp_ajax_test' );
