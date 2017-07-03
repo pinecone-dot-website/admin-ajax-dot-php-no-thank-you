@@ -6,8 +6,21 @@ class Admin
 {
     public function __construct()
     {
+        add_filter( 'admin_footer_text', array($this, 'admin_footer_text') );
         add_action( 'admin_menu', array($this, 'admin_menu') );
         add_filter( 'plugin_action_links_admin-ajax-dot-php-no-thank-you/_plugin.php', array($this, 'plugin_action_links') );
+    }
+
+    /**
+    *
+    *   @param string html
+    *   @return string html
+    */
+    public function admin_footer_text($original = '')
+    {
+        return render( 'admin/options-general_footer', array(
+            'version' => version()
+        ) );
     }
 
     /**
