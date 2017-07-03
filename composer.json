@@ -13,7 +13,7 @@
             "functions.php"
         ],
         "psr-4": {
-            "Admin_Ajax\\": "lib/Admin_Ajax"
+            "Admin_Ajax\\": "lib/Admin_Ajax/"
         }
     },
     "require": {

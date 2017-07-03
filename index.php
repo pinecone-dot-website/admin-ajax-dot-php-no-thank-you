@@ -28,10 +28,15 @@ if (is_admin()) {
     new Admin;
 }
 
-add_action( 'wp_ajax_admin-ajax-test', function () {
+/**
+*
+*/
+function wp_ajax_test()
+{
     $response = array(
         'post' => $_POST
     );
 
     wp_send_json( $response );
-} );
+}
+add_action( 'wp_ajax_admin-ajax-test', __NAMESPACE__.'\wp_ajax_test' );
