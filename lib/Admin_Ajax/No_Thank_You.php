@@ -74,6 +74,9 @@ class No_Thank_You
     */
     public function require_admin_ajax()
     {
+        require_once ABSPATH . 'wp-admin/includes/class-wp-screen.php';
+        $GLOBALS['current_screen'] = \WP_Screen::get('no-thank-you');
+
         require ABSPATH.'/wp-admin/admin-ajax.php';
         exit();
     }
@@ -88,14 +91,12 @@ class No_Thank_You
     */
     public function rewrite_ajax_admin_url($url, $path, $blog_id)
     {
-        
         if (\stripos( $path, 'admin-ajax.php') !== 0) {
             return $url;
         }
         
         $parsed = \parse_url( $url );
         
-
         if ((self::$settings['default'] == 'rest-api') && in_array('rest-api', self::$settings['enabled'])) {
             $url = self::get_endpoint_rest( $blog_id );
         } elseif ((self::$settings['default'] == 'rewrite') && in_array('rewrite', self::$settings['enabled'])) {

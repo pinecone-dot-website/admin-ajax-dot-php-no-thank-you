@@ -7,7 +7,7 @@ Description: 	Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 Domain Path:	/lang
 Plugin URI: 	https://github.com/pinecone-dot-website/admin-ajax-dot-php-no-thank-you
 Text Domain:	
-Version:		0.5.0
+Version:		0.6.0
 */
 
 register_activation_hook( __FILE__, create_function("", '$ver = "5.3"; if( version_compare(phpversion(), $ver, "<") ) die( "This plugin requires PHP version $ver or greater be installed." );') );
