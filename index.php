@@ -2,8 +2,8 @@
 
 namespace Admin_Ajax;
 
-if (!function_exists('Admin_Ajax\version')) {
-    require __DIR__.'/autoload.php';
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.'/vendor/autoload.php';
 }
     
 new No_Thank_You;
