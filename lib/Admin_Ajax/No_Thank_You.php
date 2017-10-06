@@ -15,6 +15,10 @@ class No_Thank_You
         add_filter( 'pre_get_posts', array($this, 'rewrite_ajax_pre_get_posts'), 1, 1 );
         add_filter( 'query_vars', array($this, 'rewrite_ajax_query_vars'), 10, 1 );
         add_filter( 'root_rewrite_rules', array($this, 'rewrite_ajax_root_rewrite_rules'), 10, 1 );
+
+        // testing
+        add_action( 'wp_ajax_admin-ajax-test', [$this, 'wp_ajax_test'] );
+        //add_action( 'wp_ajax_nopriv_admin-ajax-test', [$this, 'wp_ajax_test'] );
     }
 
     /**
@@ -171,5 +175,18 @@ class No_Thank_You
             'methods' => 'GET, POST',
             'callback' => array($this, 'require_admin_ajax'),
         ) );
+    }
+
+    /**
+    *   returns post data in json
+    *   used for testing wp-admin/options-general.php?page=admin-ajax.php-no-thank-you
+    */
+    function wp_ajax_test()
+    {
+        $response = [
+            'post' => $_POST
+        ];
+
+        wp_send_json( $response );
     }
 }

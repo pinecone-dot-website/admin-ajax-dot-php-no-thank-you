@@ -7,7 +7,7 @@ Author URI: 	https://rack.and.pinecone.website/
 Description: 	Changes the wp-admin/admin-ajax.php endpoint to /ajax/
 Domain Path:	/lang
 Text Domain:	
-Version:		0.6.1
+Version:		0.6.2
 */
 
 register_activation_hook( __FILE__, create_function("", '$ver = "5.4"; if( version_compare(phpversion(), $ver, "<") ) die( "This plugin requires PHP version $ver or greater be installed." );') );
