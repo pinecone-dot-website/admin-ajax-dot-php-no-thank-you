@@ -6,9 +6,9 @@ class Admin
 {
     public function __construct()
     {
-        add_filter( 'admin_footer_text', array($this, 'admin_footer_text') );
-        add_action( 'admin_menu', array($this, 'admin_menu') );
-        add_filter( 'plugin_action_links_admin-ajax-dot-php-no-thank-you/_plugin.php', array($this, 'plugin_action_links') );
+        add_filter( 'admin_footer_text', [$this, 'admin_footer_text'] );
+        add_action( 'admin_menu', [$this, 'admin_menu'] );
+        add_filter( 'plugin_action_links_admin-ajax-dot-php-no-thank-you/_plugin.php', [$this, 'plugin_action_links'] );
     }
 
     /**
@@ -18,9 +18,9 @@ class Admin
     */
     public function admin_footer_text($original = '')
     {
-        return render( 'admin/options-general_footer', array(
+        return render( 'admin/options-general_footer', [
             'version' => version()
-        ) );
+        ] );
     }
 
     /**
@@ -35,25 +35,25 @@ class Admin
             'admin-ajax.php',
             'manage_options',
             'admin-ajax.php-no-thank-you',
-            array($this, 'render_main')
+            [$this, 'render_main']
         );
 
         add_settings_section(
             'admin_ajax_no_thank_you_settings_section',
             '',    // subhead
-            array($this,'description'),
+            [$this,'description'],
             'admin_ajax_no_thank_you'
         );
 
         add_settings_field(
             'admin_ajax_no_thank_you-endpoints',
             'Endpoints',
-            array($this, 'render_enabled'),
+            [$this, 'render_enabled'],
             'admin_ajax_no_thank_you',
             'admin_ajax_no_thank_you_settings_section'
         );
 
-        register_setting( 'admin_ajax_no_thank_you', 'admin_ajax_no_thank_you', array($this,'save_setting') );
+        register_setting( 'admin_ajax_no_thank_you', 'admin_ajax_no_thank_you', [$this,'save_setting'] );
     }
 
     /**
@@ -87,13 +87,13 @@ class Admin
     {
         $settings = No_Thank_You::get_settings();
        
-        echo render( 'admin/options-general-enabled', array(
-            'endpoints' => array(
+        echo render( 'admin/options-general-enabled', [
+            'endpoints' => [
                 'rest' => No_Thank_You::get_endpoint_rest(),
                 'rewrite' => No_Thank_You::get_endpoint_rewrite()
-            ),
+            ],
             'settings' => $settings
-        ) );
+        ] );
     }
 
     /**
@@ -101,7 +101,7 @@ class Admin
     */
     public function render_main()
     {
-        wp_enqueue_script( 'taxonomy-taxi', plugins_url('public/admin/options-general.js', dirname(__DIR__)), array(), version(), 'all' );
+        wp_enqueue_script( 'taxonomy-taxi', plugins_url('public/admin/options-general.js', dirname(__DIR__)), [], version(), 'all' );
         echo render( 'admin/options-general' );
     }
 

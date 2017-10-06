@@ -10,11 +10,11 @@ class No_Thank_You
     {
         self::load_settings();
         
-        add_filter( 'admin_url', array($this, 'rewrite_ajax_admin_url'), 10, 3 );
-        add_action( 'rest_api_init', array($this, 'rest_api_init') );
-        add_filter( 'pre_get_posts', array($this, 'rewrite_ajax_pre_get_posts'), 1, 1 );
-        add_filter( 'query_vars', array($this, 'rewrite_ajax_query_vars'), 10, 1 );
-        add_filter( 'root_rewrite_rules', array($this, 'rewrite_ajax_root_rewrite_rules'), 10, 1 );
+        add_filter( 'admin_url', [$this, 'rewrite_ajax_admin_url'], 10, 3 );
+        add_action( 'rest_api_init', [$this, 'rest_api_init'] );
+        add_filter( 'pre_get_posts', [$this, 'rewrite_ajax_pre_get_posts'], 1, 1 );
+        add_filter( 'query_vars', [$this, 'rewrite_ajax_query_vars'], 10, 1 );
+        add_filter( 'root_rewrite_rules', [$this, 'rewrite_ajax_root_rewrite_rules'], 10, 1 );
 
         // testing
         add_action( 'wp_ajax_admin-ajax-test', [$this, 'wp_ajax_test'] );
@@ -37,9 +37,9 @@ class No_Thank_You
     public static function get_endpoint_rest($blog_id = null)
     {
         $url = get_rest_url( $blog_id, self::$settings['endpoint']['rest-api'] );
-        $url = add_query_arg( array(
+        $url = add_query_arg( [
             '_wpnonce' => wp_create_nonce( 'wp_rest' )
-        ), $url );
+        ], $url );
 
         return $url;
     }
@@ -59,16 +59,16 @@ class No_Thank_You
     */
     public static function load_settings()
     {
-        $defaults = array(
+        $defaults = [
             'default' => '',
-            'enabled' => array(),
-            'endpoint' => array(
+            'enabled' => [],
+            'endpoint' => [
                 'rewrite' => 'ajax',
                 'rest-api' => 'wp/v2/admin-ajax'
-            )
-        );
+            ]
+        ];
 
-        $settings = get_option( 'admin_ajax_no_thank_you', array() );
+        $settings = get_option( 'admin_ajax_no_thank_you', [] );
         
         self::$settings = array_merge( $defaults, $settings );
     }
@@ -171,10 +171,10 @@ class No_Thank_You
         $namespace = implode( '/', array_slice($endpoint, 0, 2) );
         $route = implode( '/', array_slice($endpoint, 2) );
         
-        register_rest_route( $namespace, $route, array(
+        register_rest_route( $namespace, $route, [
             'methods' => 'GET, POST',
-            'callback' => array($this, 'require_admin_ajax'),
-        ) );
+            'callback' => [$this, 'require_admin_ajax'],
+        ] );
     }
 
     /**

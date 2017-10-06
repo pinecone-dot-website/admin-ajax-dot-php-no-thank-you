@@ -7,7 +7,7 @@ namespace Admin_Ajax;
 *   @param string
 *   @param object|array
 */
-function render($_template, $vars = array())
+function render($_template, $vars = [])
 {
     $_template_file = sprintf( '%s/views/%s.php', __DIR__, $_template );
     
