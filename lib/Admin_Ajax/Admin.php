@@ -6,21 +6,8 @@ class Admin
 {
     public function __construct()
     {
-        add_filter('admin_footer_text', [$this, 'admin_footer_text']);
         add_action('admin_menu', [$this, 'admin_menu']);
         add_filter('plugin_action_links_admin-ajax-dot-php-no-thank-you/_plugin.php', [$this, 'plugin_action_links']);
-    }
-
-    /**
-     *
-     *   @param string html
-     *   @return string html
-     */
-    public function admin_footer_text($original = '')
-    {
-        return render('admin/options-general_footer', [
-            'version' => version()
-        ]);
     }
 
     /**
@@ -53,7 +40,11 @@ class Admin
             'admin_ajax_no_thank_you_settings_section'
         );
 
-        register_setting('admin_ajax_no_thank_you', 'admin_ajax_no_thank_you', [$this, 'save_setting']);
+        register_setting(
+            'admin_ajax_no_thank_you',
+            'admin_ajax_no_thank_you',
+            [$this, 'save_setting']
+        );
     }
 
     /**
@@ -92,7 +83,7 @@ class Admin
                 'rest' => No_Thank_You::get_endpoint_rest(),
                 'rewrite' => No_Thank_You::get_endpoint_rewrite()
             ],
-            'settings' => $settings
+            'settings' => $settings,
         ]);
     }
 
@@ -102,7 +93,9 @@ class Admin
     public function render_main()
     {
         wp_enqueue_script('taxonomy-taxi', plugins_url('public/admin/options-general.js', dirname(__DIR__)), [], version(), 'all');
-        echo render('admin/options-general');
+        echo render('admin/options-general', [
+            'version' => version(),
+        ]);
     }
 
     /**
@@ -115,8 +108,6 @@ class Admin
         $form_data['endpoint'] = array_map(function ($val) {
             return trim($val, '/');
         }, $form_data['endpoint']);
-
-        //ddbug($form_data);
 
         add_action('shutdown', function () {
             No_Thank_You::settings_load();
